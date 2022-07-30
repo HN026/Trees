@@ -81,6 +81,7 @@ void Queue :: Display()
 
 class Tree
 {
+    
     public:
     Node *root;
     Tree()
@@ -89,6 +90,11 @@ class Tree
     }
     void CreateTree();
     void PreOrder(Node *p);
+    // If we want to make the root node as private then we will have to make the syntax as a dummy one e.g
+    // void PreOrder()
+    // {
+    //     PreOrder(root);
+    // }
     void InOrder(Node *p);
     void PostOrder(Node *p);
     void LevelOrder(Node *root);
@@ -209,5 +215,17 @@ int Tree :: Height (Node *root)
 
 int main()
 {
+    Tree t;
+    t.CreateTree();
+    t.PreOrder(t.root);
+    cout<<endl;
+    t.InOrder(t.root);
+    cout<<endl;
+    t.PostOrder(t.root);
+    cout<<endl;
+    t.LevelOrder(t.root);
+    cout<<endl;
+    cout<<t.Height(t.root);
+    cout<<endl;
     return 0;
 }
