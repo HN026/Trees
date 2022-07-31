@@ -141,6 +141,7 @@ void Tree :: CreateTree(){
     }
 }
 
+
 void Tree :: PreOrder(Node *p)
 {
     if(p!=NULL)

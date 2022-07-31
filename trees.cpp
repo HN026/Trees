@@ -22,18 +22,18 @@ struct Queue{
 void create ( struct Queue *q, int size)
 {
     q->size = size;
-    q->front = q->rear = 0;
+    q->front = q->rear = -1;
     q->Q = new struct Node *;
 }
 
 void enqueue ( struct Queue *q, struct Node *x)
 {
-   if((q->rear+1)%q->size==q->front)
+   if(q->rear == q->size-1)
    {
     cout<<"Queue is Full"<<endl;
    }
    else
-   q->rear = (q->rear+1)%q->size;
+   q->rear++;
    q->Q[q->rear] = x;
 }
 
@@ -46,7 +46,7 @@ Node *dequeue ( struct Queue *q)
     }
     else
     {
-        q->front = (q->front+1)%q->size;
+        q->front++;
         x = q->Q[q->front];
     }
     return x;
@@ -139,6 +139,6 @@ int main()
 {
 
     createtree();
-    preorder(root);
+    inorder(root);
     return 0;
 }

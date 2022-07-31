@@ -7,7 +7,11 @@ struct Node
     struct Node *lchild;
     int data;
     struct Node *rchild;
-}*root=NULL;
+};
+
+struct Node *root = NULL;
+
+
 
 struct Queue{
     int size;
@@ -22,18 +26,18 @@ struct Queue{
 void create ( struct Queue *q, int size)
 {
     q->size = size;
-    q->front = q->rear = 0;
-    q->Q = new struct Node *;
+    q->front = q->rear = -1;
+    q->Q = new  Node *;
 }
 
 void enqueue ( struct Queue *q, struct Node *x)
 {
-   if((q->rear+1)%q->size==q->front)
+   if(q->rear == q->size-1)
    {
     cout<<"Queue is Full"<<endl;
    }
    else
-   q->rear = (q->rear+1)%q->size;
+   q->rear++;
    q->Q[q->rear] = x;
 }
 
@@ -46,7 +50,7 @@ Node *dequeue ( struct Queue *q)
     }
     else
     {
-        q->front = (q->front+1)%q->size;
+        q->front++;
         x = q->Q[q->front];
     }
     return x;
@@ -55,7 +59,7 @@ Node *dequeue ( struct Queue *q)
 
 int isEmpty ( struct Queue q)
 {
-    return q.front ==q.rear;
+    return q.front == q.rear;
 }
 
 struct Stack
@@ -130,7 +134,7 @@ void createtree()
 
     cout<<"Enter the root value: "<<endl;
     cin>>x;
-    root = new struct Node;
+    root = new struct Node ;
     root->data = x;
     root->lchild = root->rchild = NULL;
     enqueue( &q, root);
@@ -237,6 +241,69 @@ void IinOrder( struct Node *p)
     }
 }
 
+void LevelOrder( struct Node *p)
+{
+    struct Queue q;
+    create(&q, 100);
+
+    cout<<p->data<<" ";
+    enqueue(&q, p);
+    
+    while(!isEmpty(q))
+    {
+        p = dequeue(&q);
+        if(p->lchild!=NULL)
+        {
+            cout<<p->lchild->data<<" ";
+            enqueue(&q, p->lchild);
+        }
+        if(p->rchild!=NULL)
+        {
+            cout<<p->rchild->data<<" ";
+            enqueue(&q, p->rchild);
+        }
+    }
+
+}
+
+int count( struct Node *p)
+{
+    int x = 0, y=0;
+    if(p!=NULL)
+    {
+        x = count(p->lchild);
+        y = count(p->rchild);
+        return x+y + 1;
+    }
+    else
+    {
+       return 0;
+    }
+    
+}
+
+int Height( struct Node *p)
+{
+    int x = 0, y=0;
+    if(p==NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        x = Height(root->lchild);
+        y = Height(root->rchild);
+        if(x>y)
+        {
+            return x+1;
+        }
+        else
+        {
+            return y+1;
+        }
+    }
+    
+}
 
 
 
@@ -245,8 +312,9 @@ void IinOrder( struct Node *p)
 
 int main()
 {
-
     createtree();
-    IinOrder(root);
+    cout<<count(root);
+    // cout<<endl;
+    // cout<<Height(root);
     return 0;
 }
