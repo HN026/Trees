@@ -291,8 +291,8 @@ int Height( struct Node *p)
     }
     else
     {
-        x = Height(root->lchild);
-        y = Height(root->rchild);
+        x = Height(p->lchild);
+        y = Height(p->rchild);
         if(x>y)
         {
             return x+1;
@@ -302,7 +302,121 @@ int Height( struct Node *p)
             return y+1;
         }
     }
-    
+}
+
+// counting leaf nodes i.e the nodes that have degree 0
+
+int countleaf( struct Node *p)
+{
+    int x = 0, y = 0;
+    if(p!=NULL)
+    {
+        x = countleaf(p->lchild);
+        y = countleaf(p->rchild);
+        if(p->lchild==NULL && p->rchild==NULL)
+        {
+            return x + y + 1;
+        }
+        else
+        {
+            return x + y;
+        }
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+
+int degreetwonodes (struct Node *p)
+{
+    int x = 0, y = 0;
+    if(p!=NULL)
+    {
+        x = degreetwonodes(p->lchild);
+        y = degreetwonodes(p->rchild);
+        if(p->lchild!=NULL && p->rchild!=NULL)
+        {
+            return x+y+1;
+        }
+        else
+        {
+            return x+y;
+        }
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int degreeonenodes (struct Node *p)
+{
+    int x = 0, y = 0;
+    if(p!=NULL)
+    {
+        x = degreeonenodes(p->lchild);
+        y = degreeonenodes(p->rchild);
+        if((p->lchild==NULL && p->rchild!=NULL) || (p->lchild!=NULL && p->rchild==NULL))
+        {
+            return x+y+1;
+        }
+        else
+        {
+            return x+y;
+        }
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+// degree one nodes using exclusive or
+int degreeonenodes2 (struct Node *p)
+{
+    int x = 0, y = 0;
+    if(p!=NULL)
+    {
+        x = degreeonenodes2(p->lchild);
+        y = degreeonenodes2(p->rchild);
+        if( p->lchild !=NULL ^ p->rchild!=NULL )
+        {
+            return x+y+1;
+        }
+        else
+        {
+            return x+y;
+        }
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+
+int degreeoneandtwonodes (struct Node *p)
+{
+    int x = 0, y = 0;
+    if(p!=NULL)
+    {
+        x = degreeoneandtwonodes(p->lchild);
+        y = degreeoneandtwonodes(p->rchild);
+        if(p->lchild!=NULL || p->rchild!=NULL)
+        {
+            return x+y+1;
+        }
+        else
+        {
+            return x+y;
+        }
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 
@@ -313,8 +427,10 @@ int Height( struct Node *p)
 int main()
 {
     createtree();
-    cout<<count(root);
-    cout<<endl;
-    cout<<Height(root);
+    // cout<<count(root);
+    // cout<<endl;
+    // The index of height starts from 0
+    // cout<<Height(root)-1;
+    cout<<degreetwonodes(root);
     return 0;
 }
