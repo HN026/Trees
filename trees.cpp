@@ -7,7 +7,9 @@ struct Node
     struct Node *lchild;
     int data;
     struct Node *rchild;
-}*root=NULL;
+};
+
+struct Node *root;
 
 struct Queue{
     int size;
@@ -23,7 +25,7 @@ void create ( struct Queue *q, int size)
 {
     q->size = size;
     q->front = q->rear = -1;
-    q->Q = new struct Node *;
+    q->Q = new struct Node *[q->size];
 }
 
 void enqueue ( struct Queue *q, struct Node *x)
@@ -55,7 +57,7 @@ Node *dequeue ( struct Queue *q)
 
 int isEmpty ( struct Queue q)
 {
-    return q.front ==q.rear;
+    return q.front == q.rear;
 }
 
 // Making a tree

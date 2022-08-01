@@ -27,7 +27,7 @@ void create ( struct Queue *q, int size)
 {
     q->size = size;
     q->front = q->rear = -1;
-    q->Q = new  Node *;
+    q->Q = new struct Node *[q->size];
 }
 
 void enqueue ( struct Queue *q, struct Node *x)
@@ -314,7 +314,7 @@ int main()
 {
     createtree();
     cout<<count(root);
-    // cout<<endl;
-    // cout<<Height(root);
+    cout<<endl;
+    cout<<Height(root);
     return 0;
 }
